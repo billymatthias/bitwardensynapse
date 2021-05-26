@@ -1,0 +1,10 @@
+{
+	"name": "synapse-ws-sql--bwanalyticspoc",
+	"properties": {
+		"privateLinkResourceId": "/subscriptions/2fd9177a-a0d2-424d-a053-def01e869de3/resourceGroups/bw-poc-analytics/providers/Microsoft.Synapse/workspaces/bwanalyticspoc",
+		"groupId": "sql",
+		"fqdns": [
+			"bwanalyticspoc.54e5211a-9c88-444b-9b10-10107b9c3804.sql.azuresynapse.net"
+		]
+	}
+}
