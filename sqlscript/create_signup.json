@@ -2,7 +2,7 @@
 	"name": "create_signup",
 	"properties": {
 		"content": {
-			"query": "CREATE TABLE [dbo].[signup]\n(\n    id varchar(40) NOT NULL,\n    creation_date datetime2(7) NOT NULL,\n    source varchar(12) NOT NULL,\n    source_id varchar(40) NOT NULL,\n    user_id varchar(40) NULL,\n    organization_id varchar(40) NULL,\n    plan_type int NULL,\n    plan_name varchar(50) NULL,\n    seats int NULL,\n    storage int NULL,\n    ts bigint NULL\n)\nWITH\n(\n    DISTRIBUTION = HASH (source_id),\n    HEAP\n)\n",
+			"query": "CREATE TABLE [dbo].[signup]\n(\n    id varchar(40) NOT NULL,\n    creation_date datetime2(7) NOT NULL,\n    source varchar(12) NOT NULL,\n    source_id varchar(40) NOT NULL,\n    user_id varchar(40) NULL,\n    organization_id varchar(40) NULL,\n    plan_type int NULL,\n    plan_name varchar(50) NULL,\n    seats int NULL,\n    storage int NULL,\n    ts int NULL\n)\nWITH\n(\n    DISTRIBUTION = HASH (source_id),\n    HEAP\n)\n",
 			"metadata": {
 				"language": "sql"
 			},
