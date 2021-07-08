@@ -1,0 +1,17 @@
+{
+	"name": "create_send_creation",
+	"properties": {
+		"content": {
+			"query": "CREATE TABLE [dbo].[send_creation]\n(\n    id varchar(40) NOT NULL,\n    creation_date datetime2(7) NOT NULL,\n    source varchar(12) NOT NULL,\n    source_id varchar(40) NOT NULL,\n    user_id varchar(40) NULL,\n    organization_id varchar(40) NULL,\n    send_type varchar(4) NULL,\n    has_password varchar(5) NULL,\n    max_access_count int NULL,\n    ts int NULL\n)\nWITH\n(\n    DISTRIBUTION = HASH (source_id),\n    HEAP\n)",
+			"metadata": {
+				"language": "sql"
+			},
+			"currentConnection": {
+				"poolName": "SQLPOOL1",
+				"databaseName": "SQLPOOL1"
+			},
+			"resultLimit": 5000
+		},
+		"type": "SqlQuery"
+	}
+}
