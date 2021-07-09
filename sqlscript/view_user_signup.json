@@ -1,0 +1,17 @@
+{
+	"name": "view_user_signup",
+	"properties": {
+		"content": {
+			"query": "CREATE MATERIALIZED VIEW user_signup\nWITH (DISTRIBUTION = HASH (creation_date))\nAS\nSELECT\n    CONVERT(DATE, creation_date, 102) AS creation_date\n    ,COUNT(*) AS user_signup_total\nFROM [dbo].[signup]\nWHERE source = 'user'\nGROUP BY CONVERT(DATE, creation_date, 102);",
+			"metadata": {
+				"language": "sql"
+			},
+			"currentConnection": {
+				"poolName": "SQLPOOL1",
+				"databaseName": "SQLPOOL1"
+			},
+			"resultLimit": 5000
+		},
+		"type": "SqlQuery"
+	}
+}

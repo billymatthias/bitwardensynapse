@@ -1,0 +1,17 @@
+{
+	"name": "view_org_signup",
+	"properties": {
+		"content": {
+			"query": "CREATE MATERIALIZED VIEW org_signup\nWITH (DISTRIBUTION = HASH (creation_date))\nAS\nSELECT\n    CONVERT(DATE, creation_date, 102) AS creation_date\n    ,COUNT(*) AS org_signup_total\n    ,SUM(CASE WHEN plan_name LIKE 'Free' THEN 1 ELSE 0 END) as free_signup\n    ,SUM(CASE WHEN plan_name LIKE 'Enterprise%' THEN 1 ELSE 0 END) as enterprise_signup\n    ,SUM(CASE WHEN plan_name LIKE 'Teams%' THEN 1 ELSE 0 END) as teams_signup\n    ,SUM(CASE WHEN plan_name LIKE 'Families%' THEN 1 ELSE 0 END) as families_signup\nFROM [dbo].[signup]\nWHERE source = 'organization'\nGROUP BY CONVERT(DATE, creation_date, 102);",
+			"metadata": {
+				"language": "sql"
+			},
+			"currentConnection": {
+				"poolName": "SQLPOOL1",
+				"databaseName": "SQLPOOL1"
+			},
+			"resultLimit": 5000
+		},
+		"type": "SqlQuery"
+	}
+}

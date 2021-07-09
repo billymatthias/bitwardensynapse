@@ -1,0 +1,17 @@
+{
+	"name": "user_sends_created",
+	"properties": {
+		"content": {
+			"query": "CREATE MATERIALIZED VIEW user_sends_created\nWITH(DISTRIBUTION = HASH (creation_date))\nAS\nSELECT\n    CONVERT(Date, creation_date, 102) as creation_date\n    ,SUM(CASE WHEN send_type = 'Text' THEN 1 ELSE 0 END) as text_sends\n    ,SUM(CASE WHEN send_type = 'File' THEN 1 ELSE 0 END) as file_sends\n    ,COUNT(*) as send_total\nFROM [dbo].[send_creation]\nWHERE source = 'user'\nGROUP BY CONVERT(Date, creation_date, 102);",
+			"metadata": {
+				"language": "sql"
+			},
+			"currentConnection": {
+				"poolName": "SQLPOOL1",
+				"databaseName": "SQLPOOL1"
+			},
+			"resultLimit": 5000
+		},
+		"type": "SqlQuery"
+	}
+}
