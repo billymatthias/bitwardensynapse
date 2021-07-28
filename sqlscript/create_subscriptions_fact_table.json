@@ -1,0 +1,17 @@
+{
+	"name": "create_subscriptions_fact_table",
+	"properties": {
+		"content": {
+			"query": "CREATE TABLE [dbo].[subscriptions]\n(\n    gateway_subscription_id varchar(30) NOT NULL,\n    gateway_customer_id varchar(20) NOT NULL,\n    created_at datetime2 NOT NULL,\n    start_date datetime2 NULL,\n    user_id varchar(40) NULL,\n    organization_id varchar(40) NULL,\n    cancel_at datetime2(7) NULL,\n    cancel_at_period_end varchar(5) NULL,\n    canceled_at datetime2(7) NULL,\n    current_period_start_at datetime2(7) NULL,\n    current_period_end_at datetime2(7) NULL,\n    ended_at datetime2(7) NULL,\n    payment_frequency varchar(7) NULL,\n    [plan] varchar(30) NULL,\n    status varchar(20) NOT NULL,\n    trial_start_at datetime2(7) NULL,\n    trial_end_at datetime2(7) NULL,\n    quantity int NOT NULL\n)\nWITH\n(\n    DISTRIBUTION = HASH (gateway_customer_id),\n    HEAP\n);\nGO\n\nCREATE NONCLUSTERED INDEX IX_organization_id\n    ON [dbo].[subscriptions] (organization_id);\nGO\nCREATE NONCLUSTERED INDEX IX_user_id\n    ON [dbo].[subscriptions] (user_id);\nGO\nCREATE NONCLUSTERED INDEX IX_created_at\n    ON [dbo].[subscriptions] (created_at);\nGO",
+			"metadata": {
+				"language": "sql"
+			},
+			"currentConnection": {
+				"poolName": "SQLPOOL1",
+				"databaseName": "SQLPOOL1"
+			},
+			"resultLimit": 5000
+		},
+		"type": "SqlQuery"
+	}
+}
