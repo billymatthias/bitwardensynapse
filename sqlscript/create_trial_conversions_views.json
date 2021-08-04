@@ -1,0 +1,17 @@
+{
+	"name": "create_trial_conversions_views",
+	"properties": {
+		"content": {
+			"query": "CREATE MATERIAZLIED VIEW ended_trials\nWITH (DISTRIBUTION = ROUND_ROBIN)\nAS\nSELECT\n    CONVERT(DATE, trial_end_at, 23) as trial_end_at\n    ,COUNT(*) as ended_trials_total\n    ,SUM(CASE WHEN [plan] LIKE 'Enterprise' THEN 1 ELSE 0 END) as ended_trials_enterprise\n    ,SUM(CASE WHEN [plan] LIKE 'Teams' THEN 1 ELSE 0 END) as ended_trials_teams\n    ,SUM(CASE WHEN [plan] LIKE 'Families' THEN 1 ELSE 0 END) as ended_trials_families\n    ,SUM(CASE WHEN [plan] LIKE 'Other' THEN 1 ELSE 0 END) as ended_trials_other\nFROM [dbo].[subscriptions]\nWHERE organization_id != '' AND (status='trialing' OR status='active' OR status='canceled') AND (trial_end_at IS NOT NULL)\nGROUP BY CONVERT(DATE, trial_end_at, 23);\nGO\n\nCREATE MATERIALIZED VIEW conversions\nWITH (DISTRIBUTION = ROUND_ROBIN)\nAS\nSELECT\n    CONVERT(DATE, trial_end_at, 23) as trial_end_at\n    ,COUNT(*) as conversions_total\n    ,SUM(CASE WHEN [plan] LIKE 'Enterprise' THEN 1 ELSE 0 END) as conversions_enterprise\n    ,SUM(CASE WHEN [plan] LIKE 'Teams' THEN 1 ELSE 0 END) as conversions_teams\n    ,SUM(CASE WHEN [plan] LIKE 'Families' THEN 1 ELSE 0 END) as conversions_families\n    ,SUM(CASE WHEN [plan] LIKE 'Other' THEN 1 ELSE 0 END) as conversions_other\nFROM [dbo].[subscriptions]\nWHERE organization_id != '' AND (status='active' AND trial_end_at IS NOT NULL)\nGROUP BY CONVERT(DATE, trial_end_at, 23);\nGO",
+			"metadata": {
+				"language": "sql"
+			},
+			"currentConnection": {
+				"poolName": "SQLPOOL1",
+				"databaseName": "SQLPOOL1"
+			},
+			"resultLimit": 5000
+		},
+		"type": "SqlQuery"
+	}
+}
