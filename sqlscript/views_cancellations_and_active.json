@@ -1,0 +1,17 @@
+{
+	"name": "views_cancellations_and_active",
+	"properties": {
+		"content": {
+			"query": "SELECT\n    CONVERT(DATE, created_at, 23) as created_at\n    ,COUNT(*) as active_subscriptions\n    ,SUM(CASE WHEN [plan] LIKE 'Enterprise' THEN 1 ELSE 0 END) as enterprise_active\n    ,SUM(CASE WHEN ([plan] LIKE 'Enterprise' AND payment_frequency='Monthly') THEN 1 ELSE 0 END) as enterprise_active_monthly\n    ,SUM(CASE WHEN ([plan] LIKE 'Enterprise' AND payment_frequency='Annual') THEN 1 ELSE 0 END) as enterprise_active_annual\n    ,SUM(CASE WHEN [plan] LIKE 'Teams' THEN 1 ELSE 0 END) as teams_active\n    ,SUM(CASE WHEN ([plan] LIKE 'Teams' AND payment_frequency='Monthly') THEN 1 ELSE 0 END) as teams_active_monthly\n    ,SUM(CASE WHEN ([plan] LIKE 'Teams' AND payment_frequency='Annual') THEN 1 ELSE 0 END) as teams_active_annual\n    ,SUM(CASE WHEN [plan] LIKE 'Families' THEN 1 ELSE 0 END) as families_active\n    ,SUM(CASE WHEN [plan] LIKE 'Other' THEN 1 ELSE 0 END) as other_active\n    ,SUM(CASE WHEN ([plan] LIKE 'Premium') THEN 1 ELSE 0 END) as personal_premium_active\nFROM [dbo].[subscriptions]\nWHERE (status!='canceled')\nGROUP BY CONVERT(DATE, created_at, 23)\nORDER BY created_at;",
+			"metadata": {
+				"language": "sql"
+			},
+			"currentConnection": {
+				"poolName": "SQLPOOL1",
+				"databaseName": "SQLPOOL1"
+			},
+			"resultLimit": 5000
+		},
+		"type": "SqlQuery"
+	}
+}

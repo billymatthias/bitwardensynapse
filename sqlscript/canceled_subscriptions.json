@@ -1,0 +1,17 @@
+{
+	"name": "canceled_subscriptions",
+	"properties": {
+		"content": {
+			"query": "SELECT\n    CONVERT(DATE, created_at, 23) as created_at\n    ,COUNT(*) as canceled_subscriptions\n    ,SUM(CASE WHEN [plan] LIKE 'Enterprise' THEN 1 ELSE 0 END) as enterprise_canceled\n    ,SUM(CASE WHEN ([plan] LIKE 'Enterprise' AND payment_frequency='Monthly') THEN 1 ELSE 0 END) as enterprise_canceled_monthly\n    ,SUM(CASE WHEN ([plan] LIKE 'Enterprise' AND payment_frequency='Annual') THEN 1 ELSE 0 END) as enterprise_canceled_annual\n    ,SUM(CASE WHEN [plan] LIKE 'Teams' THEN 1 ELSE 0 END) as teams_canceled\n    ,SUM(CASE WHEN ([plan] LIKE 'Teams' AND payment_frequency='Monthly') THEN 1 ELSE 0 END) as teams_canceled_monthly\n    ,SUM(CASE WHEN ([plan] LIKE 'Teams' AND payment_frequency='Annual') THEN 1 ELSE 0 END) as teams_canceled_annual\n    ,SUM(CASE WHEN [plan] LIKE 'Families' THEN 1 ELSE 0 END) as families_canceled\n    ,SUM(CASE WHEN [plan] LIKE 'Other' THEN 1 ELSE 0 END) as other_canceled\n    ,SUM(CASE WHEN ([plan] LIKE 'Premium') THEN 1 ELSE 0 END) as personal_premium_canceled\nFROM [dbo].[subscriptions]\nWHERE (status='canceled')\nGROUP BY CONVERT(DATE, created_at, 23)\nORDER BY created_at;",
+			"metadata": {
+				"language": "sql"
+			},
+			"currentConnection": {
+				"poolName": "SQLPOOL1",
+				"databaseName": "SQLPOOL1"
+			},
+			"resultLimit": 5000
+		},
+		"type": "SqlQuery"
+	}
+}

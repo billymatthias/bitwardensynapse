@@ -1,0 +1,17 @@
+{
+	"name": "create_active_subscribers",
+	"properties": {
+		"content": {
+			"query": "CREATE TABLE active_subscribers_weekly\n(\n    [date] datetime2(7) NOT NULL\n    ,week_end_subscribers int NULL\n    ,unique_week_end_subscribers int NULL\n)\nWITH\n(\n    DISTRIBUTION = ROUND_ROBIN,\n    HEAP\n);\nGO\n\nCREATE TABLE active_subscribers_monthly\n(\n    [date] datetime2(7) NOT NULL\n    ,month_end_subscribers int NULL\n    ,unique_month_end_subscribers int NULL\n)\nWITH\n(\n    DISTRIBUTION = ROUND_ROBIN,\n    HEAP\n);\nGO",
+			"metadata": {
+				"language": "sql"
+			},
+			"currentConnection": {
+				"poolName": "SQLPOOL1",
+				"databaseName": "SQLPOOL1"
+			},
+			"resultLimit": 5000
+		},
+		"type": "SqlQuery"
+	}
+}
