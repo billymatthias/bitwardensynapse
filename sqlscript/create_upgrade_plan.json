@@ -1,0 +1,17 @@
+{
+	"name": "create_upgrade_plan",
+	"properties": {
+		"content": {
+			"query": "-- upgrading from from Free to Paid\nCREATE TABLE [dbo].[upgrade_plan]\n(\n    id varchar(50) NOT NULL,\n    [date] datetime2(7) NOT NULL,\n    user_id varchar(50) NULL,\n    organization_id varchar(50) NULL,\n    [plan] varchar(50) NULL,\n    seats INT NULL,\n    storage INT NULL,\n    last_modified_date datetime2(7) NOT NULL\n)\nWITH\n(\n    DISTRIBUTION = HASH (user_id),\n    CLUSTERED INDEX (id)\n)\nGO\n\nCREATE INDEX organization_id_ix ON dbo.upgrade_plan (organization_id)\nGO\n\nCREATE INDEX last_modified_date_ix ON dbo.upgrade_plan (last_modified_date)\nGO\n\nCREATE INDEX user_id_ix ON dbo.upgrade_plan (user_id)\nGO",
+			"metadata": {
+				"language": "sql"
+			},
+			"currentConnection": {
+				"databaseName": "SQLPOOL1",
+				"poolName": "SQLPOOL1"
+			},
+			"resultLimit": 5000
+		},
+		"type": "SqlQuery"
+	}
+}
