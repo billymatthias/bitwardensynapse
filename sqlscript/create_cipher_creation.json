@@ -2,7 +2,7 @@
 	"name": "create_cipher_creation",
 	"properties": {
 		"content": {
-			"query": "-- cipher creation event\nCREATE TABLE [dbo].[cipher_creation]\n(\n    id varchar(50) NOT NULL,\n    [date] datetime2(7) NOT NULL,\n    user_id varchar(50) NULL,\n    organization_id varchar(50) NULL,\n    last_modified_date datetime2(7) NOT NULL\n)\nWITH\n(\n    DISTRIBUTION = HASH (user_id),\n    CLUSTERED INDEX (id)\n)\nGO\n\nCREATE INDEX organization_id_ix ON dbo.cipher_creation (organization_id)\nGO\n\nCREATE INDEX last_modified_date_ix ON dbo.cipher_creation (last_modified_date)\nGO\n\nCREATE INDEX user_id_ix ON dbo.cipher_creation (user_id)\nGO",
+			"query": "-- cipher creation event\nCREATE TABLE [dbo].[cipher_creation]\n(\n    id varchar(50) NOT NULL,\n    [date] datetime2(7) NOT NULL,\n    user_id varchar(50) NULL,\n    organization_id varchar(50) NULL,\n    last_modified_date datetime2(7) NOT NULL\n)\nWITH\n(\n    DISTRIBUTION = HASH (id),\n    CLUSTERED INDEX (id)\n)\nGO\n\nCREATE INDEX organization_id_ix ON dbo.cipher_creation (organization_id)\nGO\n\nCREATE INDEX last_modified_date_ix ON dbo.cipher_creation (last_modified_date)\nGO\n\nCREATE INDEX user_id_ix ON dbo.cipher_creation (user_id)\nGO",
 			"metadata": {
 				"language": "sql"
 			},
