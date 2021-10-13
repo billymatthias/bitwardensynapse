@@ -1,0 +1,17 @@
+{
+	"name": "create_send_created",
+	"properties": {
+		"content": {
+			"query": "CREATE TABLE [dbo].[send_created]\n(\n    id varchar(50) NOT NULL,\n    [date] varchar(50) NOT NULL,\n    user_id varchar(50) NULL,\n    organization_id varchar(50) NULL,\n    send_type varchar(5) NULL,\n    has_password varchar(5) NULL,\n    max_access_count int NULL,\n    last_modified_date datetime2(7) NOT NULL\n)\nWITH\n(\n    DISTRIBUTION = HASH (user_id),\n    CLUSTERED INDEX (id)\n)\nGO\n\nCREATE INDEX user_id_ix ON dbo.send_created (user_id)\nGO\n\nCREATE INDEX last_modified_date_ix ON dbo.send_created (last_modified_date)\nGO",
+			"metadata": {
+				"language": "sql"
+			},
+			"currentConnection": {
+				"databaseName": "SQLPOOL1",
+				"poolName": "SQLPOOL1"
+			},
+			"resultLimit": 5000
+		},
+		"type": "SqlQuery"
+	}
+}
